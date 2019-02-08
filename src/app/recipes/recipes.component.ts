@@ -7,8 +7,5 @@ import { Recipe } from "./recipe.model";
   styleUrls: ["./recipes.component.css"]
 })
 export class RecipesComponent {
-  recipeActive: Recipe;
-  onRecipeSelected(recipe: Recipe) {
-    this.recipeActive = recipe;
-  }
+  selectedRecipe: Recipe;
 }

@@ -19,9 +19,9 @@ export class RecipeListComponent {
       "https://pinchofyum.com/wp-content/uploads/Chili-Sesame-Zoodles-Recipe.jpg"
     )
   ];
-  @Output() recipeSelectedEvt = new EventEmitter<Recipe>();
+  @Output() recipeWasSelected = new EventEmitter<Recipe>();
 
   onRecipeSelected(recipe: Recipe) {
-    this.recipeSelectedEvt.emit(recipe);
+    this.recipeWasSelected.emit(recipe);
   }
 }
