@@ -15,20 +15,13 @@ import { Ingredient } from "src/app/shared/ingredient.model";
 })
 export class ShoppingEditComponent {
   @Output() ingredientAdded = new EventEmitter<Ingredient>();
-  @ViewChild("nameInput") nameInput: ElementRef;
-  @ViewChild("amountInput") amountInput: ElementRef;
+  @ViewChild("nameInput") nameInputRef: ElementRef;
+  @ViewChild("amountInput") amountInputRef: ElementRef;
 
-  addIngredient() {
-    if (
-      this.nameInput.nativeElement.value.length > 0 &&
-      +this.amountInput.nativeElement.value > 0
-    ) {
-      this.ingredientAdded.emit(
-        new Ingredient(
-          this.nameInput.nativeElement.value,
-          +this.amountInput.nativeElement.value
-        )
-      );
-    }
+  onAddItem() {
+    const ingName = this.nameInputRef.nativeElement.value;
+    const ingAmount = this.amountInputRef.nativeElement.value;
+    const newIngredient = new Ingredient(ingName, ingAmount);
+    this.ingredientAdded.emit(newIngredient);
   }
 }
