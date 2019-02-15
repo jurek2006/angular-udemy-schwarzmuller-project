@@ -6,7 +6,7 @@ export class ShoppingListService {
 
   private ingredients: Ingredient[] = [
     new Ingredient('Jabłka', 10),
-    new Ingredient('Pomidory', 3)
+    new Ingredient('Pomidor', 3)
   ];
 
   getIngredients() {
@@ -36,6 +36,6 @@ export class ShoppingListService {
       }
     }
 
-    console.log(this.ingredients);
+    this.ingredientsChanged.emit([...this.ingredients]);
   }
 }
