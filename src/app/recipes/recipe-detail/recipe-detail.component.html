@@ -21,7 +21,11 @@
       </button>
       <ul class="dropdown-menu">
         <li><a (click)="onAddToShoppingList()">To Shopping List</a></li>
-        <li><a>Edit Recipe</a></li>
+        <li>
+          <a [routerLink]="['edit']" routerLinkActive="router-link-active"
+            >Edit Recipe</a
+          >
+        </li>
         <li><a>Delete Recipe</a></li>
       </ul>
     </div>
