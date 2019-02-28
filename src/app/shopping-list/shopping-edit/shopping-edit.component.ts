@@ -9,12 +9,11 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./shopping-edit.component.css']
 })
 export class ShoppingEditComponent {
-  @ViewChild('form') shoppingForm: NgForm;
-
   constructor(private shoppingListService: ShoppingListService) {}
 
-  onSubmit() {
-    const { name, number } = this.shoppingForm.value;
-    this.shoppingListService.addIngredient(new Ingredient(name, number));
+  onAddItem(form: NgForm) {
+    this.shoppingListService.addIngredient(
+      new Ingredient(form.value.name, form.value.number)
+    );
   }
 }
