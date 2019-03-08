@@ -4,7 +4,9 @@ import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs";
 
-@Injectable()
+@Injectable({
+  providedIn: "root"
+})
 export class RecipeService {
   private recipes: Recipe[] = [
     new Recipe(
@@ -48,7 +50,6 @@ export class RecipeService {
       ingredients: Ingredient[];
     }
   ) {
-    console.log("index", index);
     const newRecipe = new Recipe(
       // if it's new recipe index is undefined and id based on length is provided (it's temporary and can cause bug)
       index || this.recipes.length + 1,
@@ -57,7 +58,6 @@ export class RecipeService {
       newRecipeData.imagePath,
       newRecipeData.ingredients
     );
-    console.log(newRecipe);
     if (index) {
       // index given - updating existing recipe with newRecipe
       this.recipes = this.recipes.map(recipe => {
@@ -71,6 +71,11 @@ export class RecipeService {
       // index not given - saving new recipe
       this.recipes = [...this.recipes, newRecipe];
     }
+    this.recipesChanged.next([...this.recipes]);
+  }
+
+  deleteRecipe(id: number) {
+    this.recipes = this.recipes.filter((recipe: Recipe) => recipe.id !== id);
     this.recipesChanged.next([...this.recipes]);
   }
 
