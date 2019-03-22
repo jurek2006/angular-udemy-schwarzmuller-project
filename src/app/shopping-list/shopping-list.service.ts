@@ -1,6 +1,7 @@
 import { Ingredient } from "../shared/ingredient.model";
 import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
+import { ServerService } from "../shared/server.service";
 
 @Injectable({
   providedIn: "root"
@@ -13,6 +14,8 @@ export class ShoppingListService {
     new Ingredient("Jabłka", 10),
     new Ingredient("Pomidor", 3)
   ];
+
+  constructor(private serverService: ServerService) {}
 
   getIngredients() {
     return [...this.ingredients];
@@ -56,5 +59,14 @@ export class ShoppingListService {
   deleteIngredient(index: number) {
     this.ingredients.splice(index, 1);
     this.ingredientsChanged.next([...this.ingredients]);
+  }
+
+  saveToServer() {
+    this.serverService
+      .saveData("shopping-list", this.getIngredients())
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
   }
 }

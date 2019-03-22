@@ -1,5 +1,6 @@
 import { Component, Output, EventEmitter } from "@angular/core";
-import { ServerService } from "../shared/server.service";
+import { RecipeService } from "../recipes/recipe.service";
+import { ShoppingListService } from "../shopping-list/shopping-list.service";
 
 @Component({
   selector: "app-header",
@@ -7,26 +8,20 @@ import { ServerService } from "../shared/server.service";
   styles: []
 })
 export class HeaderComponent {
-  constructor(private serverService: ServerService) {}
+  constructor(
+    private recipeService: RecipeService,
+    private shoppingListService: ShoppingListService
+  ) {}
 
   onSaveData() {
-    this.serverService
-      .saveRecipes()
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error)
-      );
-
-    this.serverService
-      .saveSchoppingList()
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error)
-      );
+    this.recipeService.saveToServer();
+    this.shoppingListService.saveToServer();
   }
 
   onLoadData() {
-    this.serverService.loadRecipes().subscribe();
-    this.serverService.loadShoppingList().subscribe();
+    // this.serverService.loadRecipes().subscribe();
+    // this.serverService.loadShoppingList().subscribe();
   }
+
+  // DODAĆ ODCZYTYWANIE
 }

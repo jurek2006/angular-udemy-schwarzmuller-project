@@ -3,6 +3,7 @@ import { Injectable } from "@angular/core";
 import { Ingredient } from "../shared/ingredient.model";
 import { ShoppingListService } from "../shopping-list/shopping-list.service";
 import { Subject } from "rxjs";
+import { ServerService } from "../shared/server.service";
 
 @Injectable({
   providedIn: "root"
@@ -27,7 +28,10 @@ export class RecipeService {
 
   recipesChanged = new Subject<Recipe[]>();
 
-  constructor(private shoppingListService: ShoppingListService) {}
+  constructor(
+    private shoppingListService: ShoppingListService,
+    private serverService: ServerService
+  ) {}
 
   getRecipes() {
     return [...this.recipes];
@@ -86,5 +90,14 @@ export class RecipeService {
 
   addIngredientsToShoppingList(ingredients: Ingredient[]) {
     this.shoppingListService.addIngredients(ingredients);
+  }
+
+  saveToServer() {
+    this.serverService
+      .saveData("recipes", this.getRecipes())
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
   }
 }
