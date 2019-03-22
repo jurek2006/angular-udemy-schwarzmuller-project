@@ -8,9 +8,17 @@ import { ServerService } from "../shared/server.service";
 })
 export class HeaderComponent {
   constructor(private serverService: ServerService) {}
+
   onSaveData() {
     this.serverService
-      .saveData()
+      .saveRecipes()
+      .subscribe(
+        response => console.log(response),
+        error => console.log(error)
+      );
+
+    this.serverService
+      .saveSchoppingList()
       .subscribe(
         response => console.log(response),
         error => console.log(error)
