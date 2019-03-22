@@ -24,4 +24,9 @@ export class HeaderComponent {
         error => console.log(error)
       );
   }
+
+  onLoadData() {
+    this.serverService.loadRecipes().subscribe();
+    this.serverService.loadShoppingList().subscribe();
+  }
 }
