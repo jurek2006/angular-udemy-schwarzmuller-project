@@ -2,6 +2,7 @@ import { Ingredient } from "../shared/ingredient.model";
 import { Subject } from "rxjs";
 import { Injectable } from "@angular/core";
 import { ServerService } from "../shared/server.service";
+import { Response } from "@angular/http";
 
 @Injectable({
   providedIn: "root"
@@ -64,9 +65,14 @@ export class ShoppingListService {
   saveToServer() {
     this.serverService
       .saveData("shopping-list", this.getIngredients())
-      .subscribe(
-        response => console.log(response),
-        error => console.log(error)
+      .subscribe((response: Response) => console.log("Zapisano", response));
+  }
+
+  loadFromServer() {
+    this.serverService
+      .loadData("shopping-list")
+      .subscribe((ingredients: Ingredient[]) =>
+        this.addIngredients(ingredients)
       );
   }
 }

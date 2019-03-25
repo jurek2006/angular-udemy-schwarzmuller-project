@@ -19,9 +19,7 @@ export class HeaderComponent {
   }
 
   onLoadData() {
-    // this.serverService.loadRecipes().subscribe();
-    // this.serverService.loadShoppingList().subscribe();
+    this.recipeService.loadFromServer();
+    this.shoppingListService.loadFromServer();
   }
-
-  // DODAĆ ODCZYTYWANIE
 }

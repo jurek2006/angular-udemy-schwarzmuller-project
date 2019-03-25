@@ -14,45 +14,33 @@ export class ServerService {
   ) {}
 
   saveData(name: string, data: any) {
-    return this.http.put(
-      `https://recipe-book-project-angular.firebaseio.com/${name}.json`,
-      data
-    );
+    return this.http
+      .put(
+        `https://recipe-book-project-angular.firebaseio.com/${name}.json`,
+        data
+      )
+      .pipe(
+        catchError((error: Response) => {
+          console.log(`Can't save data ${name}`, error);
+          return throwError(error);
+        })
+      );
   }
 
-  // loadRecipes() {
-  //   return this.http
-  //     .get("https://recipe-book-project-angular.firebaseio.com/recipes.json")
-  //     .pipe(
-  //       map((response: Response) => {
-  //         const recipes = response.json();
-  //         console.log(recipes);
-  //         this.recipeService.setRecipes(recipes);
-  //         return recipes;
-  //       }),
-  //       catchError((error: Response) => {
-  //         console.log(error);
-  //         return throwError(error);
-  //       })
-  //     );
-  // }
-
-  // loadShoppingList() {
-  //   return this.http
-  //     .get(
-  //       "https://recipe-book-project-angular.firebaseio.com/shopping-list.json"
-  //     )
-  //     .pipe(
-  //       map((response: Response) => {
-  //         const shoppingList = response.json();
-  //         console.log(shoppingList);
-  //         this.shoppingListService.addIngredients(shoppingList);
-  //         return shoppingList;
-  //       }),
-  //       catchError((error: Response) => {
-  //         console.log(error);
-  //         return throwError(error);
-  //       })
-  //     );
-  // }
+  loadData(name: string) {
+    return this.http
+      .get(`https://recipe-book-project-angular.firebaseio.com/${name}.json`)
+      .pipe(
+        map((response: Response) => {
+          const data = response.json();
+          console.log(data);
+          // this.recipeService.setRecipes(recipes);
+          return data;
+        }),
+        catchError((error: Response) => {
+          console.log(error);
+          return throwError(error);
+        })
+      );
+  }
 }
