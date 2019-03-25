@@ -15,4 +15,8 @@ export class HeaderComponent {
       console.log(response);
     });
   }
+
+  onFetchData() {
+    this.dataStoraceService.getRecipes();
+  }
 }
