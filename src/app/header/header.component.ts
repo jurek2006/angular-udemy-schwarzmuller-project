@@ -1,8 +1,18 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component } from "@angular/core";
+import { DataStorageService } from "../shared/data-storage.service";
+import { Response } from "@angular/http";
 
 @Component({
-  selector: 'app-header',
-  templateUrl: './header.component.html',
+  selector: "app-header",
+  templateUrl: "./header.component.html",
   styles: []
 })
-export class HeaderComponent {}
+export class HeaderComponent {
+  constructor(private dataStoraceService: DataStorageService) {}
+
+  onSaveData() {
+    this.dataStoraceService.storeRecipes().subscribe((response: Response) => {
+      console.log(response);
+    });
+  }
+}
