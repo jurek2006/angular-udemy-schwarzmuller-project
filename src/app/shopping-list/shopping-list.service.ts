@@ -26,6 +26,10 @@ export class ShoppingListService {
     return this.ingredients[index];
   }
 
+  private resetIngredients() {
+    this.ingredients = [];
+  }
+
   addIngredient(ingredient: Ingredient) {
     this.ingredients = [...this.ingredients, ingredient];
     this.ingredientsChanged.next([...this.ingredients]);
@@ -71,8 +75,9 @@ export class ShoppingListService {
   loadFromServer() {
     this.serverService
       .loadData("shopping-list")
-      .subscribe((ingredients: Ingredient[]) =>
-        this.addIngredients(ingredients)
-      );
+      .subscribe((ingredients: Ingredient[]) => {
+        this.resetIngredients();
+        this.addIngredients(ingredients);
+      });
   }
 }
